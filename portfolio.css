@@ -1,0 +1,16 @@
+body {
+    margin: 0;
+    padding: 0;
+}
+
+main {
+    width: 100%;
+}
+
+.my_name, .introduction {
+    text-align: center;
+}
+
+.my_name {
+    font-size: 40px;
+}
