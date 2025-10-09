@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Video Casting App</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Mode Selection Screen -->
+    <div id="mode-selection" class="screen">
+        <div class="container">
+            <h1>Video Casting App</h1>
+            <p>Choose your device mode:</p>
+            <div class="mode-buttons">
+                <button id="sender-mode-btn" class="btn btn--primary btn--lg">
+                    📱 Mobile Sender
+                </button>
+                <button id="receiver-mode-btn" class="btn btn--primary btn--lg">
+                    🖥️ Desktop Receiver
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Sender App -->
+    <div id="sender-app" class="screen hidden">
+        <!-- Connection Panel -->
+        <div id="connection-panel" class="connection-panel">
+            <div class="connection-content">
+                <h2>Connect to Receiver</h2>
+                <div class="form-group">
+                    <label class="form-label">Room Code</label>
+                    <input type="text" id="room-code-input" class="form-control" placeholder="Enter room code">
+                </div>
+                <button id="connect-btn" class="btn btn--primary btn--full-width">Connect</button>
+            </div>
+        </div>
+
+        <!-- Sender Interface -->
+        <div id="sender-interface" class="sender-interface hidden">
+            <!-- Status Bar -->
+            <div class="status-bar">
+                <div class="connection-status" id="connection-status">
+                    <span class="status-indicator disconnected"></span>
+                    <span>Disconnected</span>
+                </div>
+                <button id="disconnect-btn" class="btn btn--sm btn--outline">Disconnect</button>
+            </div>
+
+            <!-- Browser Controls -->
+            <div class="browser-controls">
+                <div class="control-buttons">
+                    <button id="back-btn" class="btn btn--sm btn--secondary">←</button>
+                    <button id="forward-btn" class="btn btn--sm btn--secondary">→</button>
+                    <button id="refresh-btn" class="btn btn--sm btn--secondary">↻</button>
+                    <button id="home-btn" class="btn btn--sm btn--secondary">🏠</button>
+                </div>
+                <div class="url-bar">
+                    <input type="url" id="url-input" class="form-control" placeholder="Enter URL">
+                    <button id="go-btn" class="btn btn--sm btn--primary">Go</button>
+                </div>
+            </div>
+
+            <!-- Browser Content -->
+            <div class="browser-content">
+                <iframe id="browser-frame" src="about:blank" sandbox=" allow-scripts allow-forms"></iframe>
+                <div id="video-overlays"></div
+            </div>
+
+            <!-- Cast Controls -->
+            <div class="cast-controls">
+                <div id="detected-videos" class="detected-videos">
+                    <p style="color: var(--color-text-secondary); font-size: var(--font-size-sm); text-align: center;">Loading...</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Receiver App -->
+    <div id="receiver-app" class="screen hidden">
+        <!-- Waiting Screen -->
+        <div id="waiting-screen" class="waiting-screen">
+            <div class="waiting-content">
+                <div class="room-info">
+                    <h2>Ready to Receive</h2>
+                    <div class="room-code-display">
+                        <span class="room-code-label">Room Code:</span>
+                        <span class="room-code" id="room-code-display">XXXX</span>
+                    </div>
+                    <p>Enter this code in your mobile sender app to connect</p>
+                </div>
+                <div class="connection-status-receiver">
+                    <div class="status-indicator" id="receiver-status-indicator"></div>
+                    <span id="receiver-status-text">Waiting for connection...</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Video Player -->
+        <div id="video-player" class="video-player hidden">
+            <video id="cast-video" controls autoplay></video>
+            <div class="video-controls">
+                <div class="video-info">
+                    <span id="video-title">Video Title</span>
+                    <span id="video-source">Source: Unknown</span>
+                </div>
+                <button id="stop-cast-btn" class="btn btn--secondary btn--sm">Stop Casting</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Loading Overlay -->
+    <div id="loading-overlay" class="loading-overlay hidden">
+        <div class="loading-content">
+            <div class="loading-spinner"></div>
+            <p id="loading-text">Loading...</p>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
