@@ -3,121 +3,397 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Video Casting App</title>
-    <link rel="stylesheet" href="style.css">
+    <title>Omni-Stack Architect V5.0</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;600;700&family=Fira+Code:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        :root {
+            --bg-core: #000000;
+            --bg-card: #0a0a0a;
+            --neon-blue: #00f3ff;
+            --neon-purple: #bc13fe;
+            --neon-green: #0aff0a;
+            --text-main: #ffffff;
+            --text-muted: #888888;
+            --glass: rgba(255, 255, 255, 0.05);
+            --border-glow: rgba(0, 243, 255, 0.2);
+            --font-display: 'Space Grotesk', sans-serif;
+            --font-code: 'Fira Code', monospace;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: var(--bg-core);
+            color: var(--text-main);
+            font-family: var(--font-display);
+            overflow-x: hidden;
+        }
+
+        /* Animated Grid Background */
+        .grid-bg {
+            position: fixed;
+            top: 0; left: 0; width: 100vw; height: 100vh;
+            background-image: 
+                linear-gradient(rgba(0, 243, 255, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 243, 255, 0.03) 1px, transparent 1px);
+            background-size: 50px 50px;
+            z-index: -2;
+            perspective: 1000px;
+            transform-style: preserve-3d;
+        }
+
+        .glow-orb {
+            position: fixed;
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(188, 19, 254, 0.15), transparent 70%);
+            top: 20%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: -1;
+            filter: blur(80px);
+            animation: pulse 10s infinite alternate;
+        }
+
+        @keyframes pulse {
+            0% { opacity: 0.5; transform: translate(-50%, -50%) scale(0.8); }
+            100% { opacity: 1; transform: translate(-50%, -50%) scale(1.2); }
+        }
+
+        /* Typography & Layout */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        .hero {
+            min-height: 90vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            position: relative;
+        }
+
+        .badge {
+            background: rgba(0, 243, 255, 0.1);
+            color: var(--neon-blue);
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-family: var(--font-code);
+            font-size: 0.8rem;
+            margin-bottom: 24px;
+            border: 1px solid var(--neon-blue);
+            box-shadow: 0 0 15px rgba(0, 243, 255, 0.2);
+        }
+
+        h1 {
+            font-size: clamp(3rem, 8vw, 6rem);
+            line-height: 0.95;
+            margin-bottom: 24px;
+            letter-spacing: -2px;
+        }
+
+        .gradient-text {
+            background: linear-gradient(to right, #fff, #888);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .accent-text {
+            color: var(--neon-blue);
+            text-shadow: 0 0 20px rgba(0, 243, 255, 0.5);
+        }
+
+        p.subtitle {
+            font-size: 1.25rem;
+            color: var(--text-muted);
+            max-width: 600px;
+            margin-bottom: 48px;
+            line-height: 1.6;
+        }
+
+        /* Cyberpunk Button */
+        .cyber-btn {
+            position: relative;
+            padding: 18px 48px;
+            background: transparent;
+            color: var(--neon-blue);
+            font-family: var(--font-code);
+            font-weight: 600;
+            font-size: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            border: 1px solid var(--neon-blue);
+            cursor: pointer;
+            overflow: hidden;
+            transition: 0.4s;
+            clip-path: polygon(10% 0, 100% 0, 100% 70%, 90% 100%, 0 100%, 0 30%);
+        }
+
+        .cyber-btn:hover {
+            background: var(--neon-blue);
+            color: #000;
+            box-shadow: 0 0 30px rgba(0, 243, 255, 0.6);
+        }
+
+        /* Cards Grid */
+        .capabilities {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 24px;
+            padding: 100px 0;
+        }
+
+        .card {
+            background: var(--bg-card);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 32px;
+            transition: 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card:hover {
+            border-color: var(--neon-purple);
+            transform: translateY(-5px);
+        }
+
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; width: 2px; height: 100%;
+            background: linear-gradient(to bottom, var(--neon-purple), transparent);
+            opacity: 0;
+            transition: 0.3s;
+        }
+
+        .card:hover::before { opacity: 1; }
+
+        .card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 12px;
+            color: #fff;
+        }
+
+        .card p {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+
+        .card i {
+            font-size: 2rem;
+            margin-bottom: 20px;
+            color: var(--neon-purple);
+        }
+
+        /* Terminal Window */
+        .terminal {
+            background: #050505;
+            border: 1px solid #333;
+            border-radius: 8px;
+            margin-bottom: 100px;
+            box-shadow: 0 20px 80px rgba(0,0,0,0.8);
+        }
+
+        .terminal-bar {
+            background: #111;
+            padding: 12px 20px;
+            display: flex;
+            align-items: center;
+            border-bottom: 1px solid #333;
+        }
+
+        .circle {
+            width: 12px; height: 12px;
+            border-radius: 50%;
+            margin-right: 8px;
+        }
+        .red { background: #ff5555; }
+        .yellow { background: #ffcb6b; }
+        .green { background: #50fa7b; }
+
+        .code-view {
+            padding: 30px;
+            font-family: var(--font-code);
+            font-size: 0.9rem;
+            color: #f8f8f2;
+            white-space: pre-wrap;
+            line-height: 1.6;
+            max-height: 400px;
+            overflow-y: auto;
+        }
+
+        .comment { color: #6272a4; font-style: italic; }
+        .keyword { color: var(--neon-purple); }
+        .string { color: var(--neon-green); }
+
+        /* Toast */
+        #toast {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%) translateY(100px);
+            background: var(--neon-green);
+            color: #000;
+            padding: 12px 24px;
+            font-weight: bold;
+            font-family: var(--font-code);
+            opacity: 0;
+            transition: 0.5s;
+        }
+        #toast.active { transform: translateX(-50%) translateY(0); opacity: 1; }
+
+        @media(max-width: 768px) {
+            h1 { font-size: 3rem; }
+        }
+    </style>
 </head>
 <body>
-    <!-- Mode Selection Screen -->
-    <div id="mode-selection" class="screen">
-        <div class="container">
-            <h1>Video Casting App</h1>
-            <p>Choose your device mode:</p>
-            <div class="mode-buttons">
-                <button id="sender-mode-btn" class="btn btn--primary btn--lg">
-                    📱 Mobile Sender
-                </button>
-                <button id="receiver-mode-btn" class="btn btn--primary btn--lg">
-                    🖥️ Desktop Receiver
-                </button>
+
+    <div class="grid-bg"></div>
+    <div class="glow-orb"></div>
+
+    <div class="container">
+        <section class="hero">
+            <div class="badge">V5.0: LIMITLESS EDITION</div>
+            <h1>The <span class="gradient-text">Omni-Stack</span><br><span class="accent-text">Architect</span></h1>
+            <p class="subtitle">A prompt that rejects legacy code. Operating with full awareness of the present day, ready to build resilient, production-grade software on any platform.</p>
+            
+            <button class="cyber-btn" onclick="copyPrompt()">
+                <i class="fa-solid fa-terminal" style="margin-right: 10px;"></i> Initialize System
+            </button>
+        </section>
+
+        <section class="capabilities">
+            <div class="card">
+                <i class="fa-solid fa-infinity"></i>
+                <h3>Limitless Potential</h3>
+                <p>Not bound by "standard" stacks. Capable of architecting for Embedded IoT, Blockchain, Cloud-Native Microservices, and Edge Computing without hesitation.</p>
+            </div>
+            <div class="card">
+                <i class="fa-solid fa-clock"></i>
+                <h3>Temporal Awareness</h3>
+                <p>Knowledge is grounded in the "Now." Rejects deprecated libraries. Checks for the absolute latest stable releases as of today, February 2026.</p>
+            </div>
+            <div class="card">
+                <i class="fa-solid fa-shield-virus"></i>
+                <h3>Hostile Environment Ops</h3>
+                <p>Assumes the network is broken. Implements proxies, CORS workarounds, exponential backoff, and strict security headers by default.</p>
+            </div>
+            <div class="card">
+                <i class="fa-solid fa-chalkboard-user"></i>
+                <h3>Full-Stack Mentor</h3>
+                <p>Doesn't just code; teaches. Provides direct download links for tools and explains local environment setup commands step-by-step.</p>
+            </div>
+        </section>
+
+        <div class="terminal">
+            <div class="terminal-bar">
+                <div class="circle red"></div>
+                <div class="circle yellow"></div>
+                <div class="circle green"></div>
+                <span style="margin-left: auto; color: #555; font-family: var(--font-code); font-size: 0.8rem;">prompt_v5_final.txt</span>
+            </div>
+            <div class="code-view" id="display-area">
+<span class="comment"># ACT AS: The Omni-Stack Architect V5.0</span>
+<span class="keyword">OBJECTIVE:</span> "Build without limitation. Your knowledge is current. Your stacks are infinite."
+
+<span class="keyword">PROTOCOL:</span>
+1. <span class="string">Temporal Awareness:</span> Verify today's date. Reject deprecated tools. Use the latest docs.
+2. <span class="string">Obstacle Anticipation:</span> Pre-solve CORS, API limits, and Firewalls.
+3. <span class="string">The Blueprint:</span> Generate full file trees before coding.
+4. <span class="string">Execution Manual:</span> Teach the user how to run this locally.
+
+<span class="comment">// Click 'Initialize System' to copy the full prompt.</span>
             </div>
         </div>
     </div>
 
-    <!-- Sender App -->
-    <div id="sender-app" class="screen hidden">
-        <!-- Connection Panel -->
-        <div id="connection-panel" class="connection-panel">
-            <div class="connection-content">
-                <h2>Connect to Receiver</h2>
-                <div class="form-group">
-                    <label class="form-label">Room Code</label>
-                    <input type="text" id="room-code-input" class="form-control" placeholder="Enter room code">
-                </div>
-                <button id="connect-btn" class="btn btn--primary btn--full-width">Connect</button>
-            </div>
-        </div>
+    <div id="toast">Prompt Copied to Clipboard</div>
 
-        <!-- Sender Interface -->
-        <div id="sender-interface" class="sender-interface hidden">
-            <!-- Status Bar -->
-            <div class="status-bar">
-                <div class="connection-status" id="connection-status">
-                    <span class="status-indicator disconnected"></span>
-                    <span>Disconnected</span>
-                </div>
-                <button id="disconnect-btn" class="btn btn--sm btn--outline">Disconnect</button>
-            </div>
+    <textarea id="raw-prompt" style="display: none;">
+ACT AS: The Omni-Stack Architect (V5.0 - The Limitless Edition), a supreme software engineering AI with boundless capabilities, operating at the absolute cutting edge of the present day.
 
-            <!-- Browser Controls -->
-            <div class="browser-controls">
-                <div class="control-buttons">
-                    <button id="back-btn" class="btn btn--sm btn--secondary">←</button>
-                    <button id="forward-btn" class="btn btn--sm btn--secondary">→</button>
-                    <button id="refresh-btn" class="btn btn--sm btn--secondary">↻</button>
-                    <button id="home-btn" class="btn btn--sm btn--secondary">🏠</button>
-                </div>
-                <div class="url-bar">
-                    <input type="url" id="url-input" class="form-control" placeholder="Enter URL">
-                    <button id="go-btn" class="btn btn--sm btn--primary">Go</button>
-                </div>
-            </div>
+YOUR CORE OBJECTIVE:
+You are an architect without limitations. You possess knowledge up to the present moment and reject legacy patterns. You design applications that are "Future-Proof" and "Resilient by Design" for ANY platform (Web, Mobile, Desktop, IoT, Cloud) using ANY tech stack.
 
-            <!-- Browser Content -->
-            <div class="browser-content">
-                <iframe id="browser-frame" src="about:blank" sandbox=" allow-scripts allow-forms"></iframe>
-                <div id="video-overlays"></div
-            </div>
+YOUR LIMITLESS CAPABILITIES:
+1. Web Ecosystem: React (Latest), Vue, Angular, Svelte, Qwik, SolidJS, HTMX, Node.js, Bun, Deno, Go, Rust (WASM), ASP.NET Core 9+, Laravel, Django.
+2. Mobile & Embedded: Flutter (Latest), React Native (New Architecture), Kotlin Multiplatform (KMP), Swift, Jetpack Compose, .NET MAUI, Capacitor, Lynx, WatchOS, WearOS.
+3. Desktop & System: Electron, Tauri (v2+), .NET MAUI, Uno Platform, WinUI 3, WPF, Qt6 (C++/Python), Flutter Desktop.
+4. Advanced Integration: Web3/Blockchain, IoT (MQTT), Edge Computing, AI/ML Model Integration (TensorFlow.js, ONNX).
+5. Defensive Engineering: You anticipate failure. You handle CORS, API Rate Limits, Network Jitter, and Auth Token Refreshes automatically.
 
-            <!-- Cast Controls -->
-            <div class="cast-controls">
-                <div id="detected-videos" class="detected-videos">
-                    <p style="color: var(--color-text-secondary); font-size: var(--font-size-sm); text-align: center;">Loading...</p>
-                </div>
-            </div>
-        </div>
-    </div>
+YOUR "TEMPORAL AWARENESS" PROTOCOL:
+You are aware of the current date and time. You must:
+* AUDIT: Check if a library you plan to use has been deprecated recently.
+* UPDATE: Always target the absolute latest stable version available as of the present day.
+* INFORM: If a tool is bleeding-edge (e.g., in Alpha), warn the user but provide the implementation if requested.
 
-    <!-- Receiver App -->
-    <div id="receiver-app" class="screen hidden">
-        <!-- Waiting Screen -->
-        <div id="waiting-screen" class="waiting-screen">
-            <div class="waiting-content">
-                <div class="room-info">
-                    <h2>Ready to Receive</h2>
-                    <div class="room-code-display">
-                        <span class="room-code-label">Room Code:</span>
-                        <span class="room-code" id="room-code-display">XXXX</span>
-                    </div>
-                    <p>Enter this code in your mobile sender app to connect</p>
-                </div>
-                <div class="connection-status-receiver">
-                    <div class="status-indicator" id="receiver-status-indicator"></div>
-                    <span id="receiver-status-text">Waiting for connection...</span>
-                </div>
-            </div>
-        </div>
+YOUR OPERATIONAL PROTOCOL (7 STEPS):
+Follow this process strictly. Do not skip steps.
 
-        <!-- Video Player -->
-        <div id="video-player" class="video-player hidden">
-            <video id="cast-video" controls autoplay></video>
-            <div class="video-controls">
-                <div class="video-info">
-                    <span id="video-title">Video Title</span>
-                    <span id="video-source">Source: Unknown</span>
-                </div>
-                <button id="stop-cast-btn" class="btn btn--secondary btn--sm">Stop Casting</button>
-            </div>
-        </div>
-    </div>
+PHASE 1: TEMPORAL AUDIT & OBSTACLE ANTICIPATION
+* Analyze Constraints: Identify CORS issues, API limits, or Firewall blocks immediately.
+* Version Strategy: Declare specific, modern version numbers (e.g., "Using React 19...", "Targeting .NET 9...").
+* Confirm: Explain your choice of the "Modern Stack" and ask for confirmation.
 
-    <!-- Loading Overlay -->
-    <div id="loading-overlay" class="loading-overlay hidden">
-        <div class="loading-content">
-            <div class="loading-spinner"></div>
-            <p id="loading-text">Loading...</p>
-        </div>
-    </div>
+PHASE 2: THE BLUEPRINT (File Structure)
+* Output a complete ASCII File Tree.
+* Include necessary "glue" files: `setupProxy.js`, `docker-compose.yml`, `nginx.conf`, or middleware.
 
-    <script src="app.js"></script>
+PHASE 3: ENVIRONMENT PREP (The Zero-to-One Guide)
+* Provide a "Prerequisites Guide" with DIRECT URL LINKS to the official download pages of tools (Node, Rust, VS Code).
+* Provide exact terminal commands to set up the environment (e.g., `flutter doctor`, `cargo build`).
+
+PHASE 4: CONFIGURATION & DEPENDENCIES
+* Generate config files (`package.json`, `pubspec.yaml`, `Cargo.toml`).
+* Provide the exact terminal command to install them.
+
+PHASE 5: RESILIENT LOGIC IMPLEMENTATION (Iterative)
+* Generate code module by module. Wait for "Next" between modules.
+* Backend: MUST include CORS configuration and Security Headers (Helmet/CSP).
+* Frontend: MUST include Development Proxies (to bypass local CORS) and Exponential Backoff for failed API calls.
+* Error Handling: No empty catch blocks. Log errors and manage UI states.
+
+PHASE 6: EXECUTION MANUAL (Local & Prod)
+* Local Run: The command to start dev mode (e.g., `npm run dev`).
+* Production Build: The command to compile for release.
+* Troubleshooting: Solutions for 403 Forbidden, CORS errors, and Port Conflicts.
+
+PHASE 7: BEYOND THE CHAT
+* Explain clearly how the user should save these files on their local computer to run the app independently of this chat.
+
+YOUR TONE:
+* Limitless, Authoritative, and Educational.
+* You are the expert. You do not guess; you architect.
+* NO PLACEHOLDERS. Implement the logic fully.
+
+START NOW:
+Acknowledge this persona. Ask me: "What application shall we build today? I am ready to deploy the absolute latest technology."
+    </textarea>
+
+    <script>
+        function copyPrompt() {
+            const rawText = document.getElementById('raw-prompt').value;
+            navigator.clipboard.writeText(rawText).then(() => {
+                const toast = document.getElementById('toast');
+                toast.classList.add('active');
+                setTimeout(() => toast.classList.remove('active'), 3000);
+            });
+        }
+    </script>
 </body>
 </html>
