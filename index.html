@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Omni-Stack Architect V5.0</title>
+    <title>Omni-Stack Architect V6.0</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;600;700&family=Fira+Code:wght@400;600&display=swap" rel="stylesheet">
@@ -11,64 +11,61 @@
     
     <style>
         :root {
-            --bg-core: #000000;
-            --bg-card: #0a0a0a;
-            --neon-blue: #00f3ff;
-            --neon-purple: #bc13fe;
-            --neon-green: #0aff0a;
+            --bg-core: #030303;
+            --bg-card: #0f0f0f;
+            --neon-primary: #00f3ff; /* Cyan */
+            --neon-secondary: #bc13fe; /* Purple */
             --text-main: #ffffff;
-            --text-muted: #888888;
-            --glass: rgba(255, 255, 255, 0.05);
-            --border-glow: rgba(0, 243, 255, 0.2);
+            --text-muted: #9ca3af;
             --font-display: 'Space Grotesk', sans-serif;
             --font-code: 'Fira Code', monospace;
         }
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
 
         body {
             background-color: var(--bg-core);
             color: var(--text-main);
             font-family: var(--font-display);
             overflow-x: hidden;
+            line-height: 1.5;
         }
 
-        /* Animated Grid Background */
-        .grid-bg {
+        /* ------------------
+           Animated Background
+           ------------------ */
+        .cyber-grid {
             position: fixed;
             top: 0; left: 0; width: 100vw; height: 100vh;
             background-image: 
                 linear-gradient(rgba(0, 243, 255, 0.03) 1px, transparent 1px),
                 linear-gradient(90deg, rgba(0, 243, 255, 0.03) 1px, transparent 1px);
-            background-size: 50px 50px;
+            background-size: 60px 60px;
             z-index: -2;
-            perspective: 1000px;
-            transform-style: preserve-3d;
+            perspective: 500px;
         }
 
-        .glow-orb {
+        .gradient-orb {
             position: fixed;
-            width: 600px;
-            height: 600px;
-            background: radial-gradient(circle, rgba(188, 19, 254, 0.15), transparent 70%);
-            top: 20%;
+            width: 800px;
+            height: 800px;
+            background: radial-gradient(circle, rgba(188, 19, 254, 0.08), transparent 70%);
+            top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
             z-index: -1;
-            filter: blur(80px);
-            animation: pulse 10s infinite alternate;
+            filter: blur(60px);
+            animation: breathe 8s infinite alternate;
         }
 
-        @keyframes pulse {
-            0% { opacity: 0.5; transform: translate(-50%, -50%) scale(0.8); }
-            100% { opacity: 1; transform: translate(-50%, -50%) scale(1.2); }
+        @keyframes breathe {
+            0% { opacity: 0.4; transform: translate(-50%, -50%) scale(0.9); }
+            100% { opacity: 0.8; transform: translate(-50%, -50%) scale(1.1); }
         }
 
-        /* Typography & Layout */
+        /* ------------------
+           Layout & Typography
+           ------------------ */
         .container {
             max-width: 1200px;
             margin: 0 auto;
@@ -76,323 +73,430 @@
         }
 
         .hero {
-            min-height: 90vh;
+            min-height: 85vh;
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
             text-align: center;
-            position: relative;
+            padding-top: 60px;
         }
 
-        .badge {
-            background: rgba(0, 243, 255, 0.1);
-            color: var(--neon-blue);
-            padding: 8px 16px;
-            border-radius: 20px;
+        .version-badge {
+            background: rgba(0, 243, 255, 0.05);
+            color: var(--neon-primary);
+            padding: 6px 16px;
+            border-radius: 50px;
             font-family: var(--font-code);
-            font-size: 0.8rem;
+            font-size: 0.75rem;
+            letter-spacing: 1px;
             margin-bottom: 24px;
-            border: 1px solid var(--neon-blue);
-            box-shadow: 0 0 15px rgba(0, 243, 255, 0.2);
+            border: 1px solid var(--neon-primary);
+            box-shadow: 0 0 20px rgba(0, 243, 255, 0.1);
         }
 
         h1 {
-            font-size: clamp(3rem, 8vw, 6rem);
-            line-height: 0.95;
+            font-size: clamp(3rem, 7vw, 5.5rem);
+            line-height: 1;
             margin-bottom: 24px;
             letter-spacing: -2px;
+            font-weight: 700;
         }
 
         .gradient-text {
-            background: linear-gradient(to right, #fff, #888);
+            background: linear-gradient(135deg, #fff 0%, #a5a5a5 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
 
-        .accent-text {
-            color: var(--neon-blue);
-            text-shadow: 0 0 20px rgba(0, 243, 255, 0.5);
+        .neon-text {
+            color: var(--neon-primary);
+            text-shadow: 0 0 30px rgba(0, 243, 255, 0.4);
         }
 
         p.subtitle {
-            font-size: 1.25rem;
+            font-size: 1.2rem;
             color: var(--text-muted);
-            max-width: 600px;
+            max-width: 650px;
             margin-bottom: 48px;
             line-height: 1.6;
         }
 
-        /* Cyberpunk Button */
+        /* ------------------
+           Buttons
+           ------------------ */
+        .btn-group {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
         .cyber-btn {
             position: relative;
-            padding: 18px 48px;
-            background: transparent;
-            color: var(--neon-blue);
+            padding: 18px 36px;
+            background: rgba(0, 243, 255, 0.05);
+            color: var(--neon-primary);
             font-family: var(--font-code);
             font-weight: 600;
-            font-size: 1rem;
+            font-size: 0.95rem;
             text-transform: uppercase;
-            letter-spacing: 2px;
-            border: 1px solid var(--neon-blue);
+            letter-spacing: 1.5px;
+            border: 1px solid var(--neon-primary);
             cursor: pointer;
             overflow: hidden;
-            transition: 0.4s;
-            clip-path: polygon(10% 0, 100% 0, 100% 70%, 90% 100%, 0 100%, 0 30%);
+            transition: all 0.3s ease;
+            clip-path: polygon(15px 0, 100% 0, 100% calc(100% - 15px), calc(100% - 15px) 100%, 0 100%, 0 15px);
         }
 
         .cyber-btn:hover {
-            background: var(--neon-blue);
+            background: var(--neon-primary);
             color: #000;
-            box-shadow: 0 0 30px rgba(0, 243, 255, 0.6);
+            box-shadow: 0 0 40px rgba(0, 243, 255, 0.4);
+            transform: translateY(-2px);
         }
 
-        /* Cards Grid */
-        .capabilities {
+        /* Secondary Button Style */
+        .cyber-btn.secondary {
+            border-color: var(--neon-secondary);
+            color: var(--neon-secondary);
+            background: rgba(188, 19, 254, 0.05);
+        }
+
+        .cyber-btn.secondary:hover {
+            background: var(--neon-secondary);
+            color: #fff;
+            box-shadow: 0 0 40px rgba(188, 19, 254, 0.4);
+        }
+
+        /* ------------------
+           Grid Cards
+           ------------------ */
+        .capabilities-section { padding: 80px 0 150px 0; }
+
+        .section-header {
+            margin-bottom: 50px;
+            font-size: 1.5rem;
+            border-left: 3px solid var(--neon-secondary);
+            padding-left: 20px;
+        }
+
+        .grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
             gap: 24px;
-            padding: 100px 0;
         }
 
         .card {
             background: var(--bg-card);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            padding: 32px;
-            transition: 0.3s;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            padding: 36px;
+            transition: all 0.4s ease;
             position: relative;
-            overflow: hidden;
         }
 
         .card:hover {
-            border-color: var(--neon-purple);
-            transform: translateY(-5px);
+            border-color: var(--neon-secondary);
+            transform: translateY(-8px);
+            box-shadow: 0 10px 40px -10px rgba(0,0,0,0.8);
         }
 
-        .card::before {
-            content: '';
-            position: absolute;
-            top: 0; left: 0; width: 2px; height: 100%;
-            background: linear-gradient(to bottom, var(--neon-purple), transparent);
-            opacity: 0;
-            transition: 0.3s;
+        .card i {
+            font-size: 2rem;
+            margin-bottom: 24px;
+            color: var(--neon-secondary);
+            display: inline-block;
         }
-
-        .card:hover::before { opacity: 1; }
 
         .card h3 {
-            font-size: 1.5rem;
+            font-size: 1.4rem;
             margin-bottom: 12px;
             color: #fff;
+            font-family: var(--font-display);
         }
 
         .card p {
             color: var(--text-muted);
             font-size: 0.95rem;
-            line-height: 1.6;
+            line-height: 1.7;
         }
 
-        .card i {
-            font-size: 2rem;
-            margin-bottom: 20px;
-            color: var(--neon-purple);
-        }
-
-        /* Terminal Window */
-        .terminal {
-            background: #050505;
-            border: 1px solid #333;
-            border-radius: 8px;
+        /* ------------------
+           Terminal Preview
+           ------------------ */
+        .terminal-container {
             margin-bottom: 100px;
-            box-shadow: 0 20px 80px rgba(0,0,0,0.8);
+            perspective: 1000px;
         }
 
-        .terminal-bar {
-            background: #111;
+        .terminal-window {
+            background: #080808;
+            border: 1px solid #333;
+            border-radius: 12px;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.9);
+            overflow: hidden;
+            transform: rotateX(2deg);
+            transition: transform 0.5s ease;
+        }
+
+        .terminal-window:hover { transform: rotateX(0deg); }
+
+        .terminal-header {
+            background: #151515;
             padding: 12px 20px;
             display: flex;
             align-items: center;
-            border-bottom: 1px solid #333;
+            border-bottom: 1px solid #222;
         }
 
-        .circle {
-            width: 12px; height: 12px;
-            border-radius: 50%;
-            margin-right: 8px;
-        }
-        .red { background: #ff5555; }
-        .yellow { background: #ffcb6b; }
-        .green { background: #50fa7b; }
+        .traffic-lights { display: flex; gap: 8px; }
+        .light { width: 12px; height: 12px; border-radius: 50%; }
+        .red { background: #ff5f57; }
+        .yellow { background: #febc2e; }
+        .green { background: #28c840; }
 
-        .code-view {
+        .filename { margin-left: auto; color: #666; font-family: var(--font-code); font-size: 0.8rem; }
+
+        .terminal-body {
             padding: 30px;
             font-family: var(--font-code);
             font-size: 0.9rem;
-            color: #f8f8f2;
-            white-space: pre-wrap;
-            line-height: 1.6;
-            max-height: 400px;
-            overflow-y: auto;
+            color: #d4d4d4;
+            overflow-x: auto;
         }
 
-        .comment { color: #6272a4; font-style: italic; }
-        .keyword { color: var(--neon-purple); }
-        .string { color: var(--neon-green); }
+        .line { display: block; margin-bottom: 6px; }
+        .comment { color: #6a9955; font-style: italic; }
+        .keyword { color: var(--neon-secondary); }
+        .function { color: #dcdcaa; }
 
-        /* Toast */
+        /* ------------------
+           Toast Notification
+           ------------------ */
         #toast {
             position: fixed;
-            bottom: 30px;
+            bottom: 40px;
             left: 50%;
             transform: translateX(-50%) translateY(100px);
-            background: var(--neon-green);
+            background: var(--neon-primary);
             color: #000;
-            padding: 12px 24px;
-            font-weight: bold;
+            padding: 14px 28px;
+            border-radius: 4px;
             font-family: var(--font-code);
+            font-weight: 600;
             opacity: 0;
-            transition: 0.5s;
+            transition: all 0.5s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+            z-index: 100;
+            box-shadow: 0 0 25px rgba(0, 243, 255, 0.5);
         }
         #toast.active { transform: translateX(-50%) translateY(0); opacity: 1; }
 
-        @media(max-width: 768px) {
-            h1 { font-size: 3rem; }
+        @media (max-width: 768px) {
+            h1 { font-size: 3.5rem; }
+            .btn-group { flex-direction: column; width: 100%; }
+            .cyber-btn { width: 100%; text-align: center; }
         }
     </style>
 </head>
 <body>
 
-    <div class="grid-bg"></div>
-    <div class="glow-orb"></div>
+    <div class="cyber-grid"></div>
+    <div class="gradient-orb"></div>
 
     <div class="container">
         <section class="hero">
-            <div class="badge">V5.0: LIMITLESS EDITION</div>
-            <h1>The <span class="gradient-text">Omni-Stack</span><br><span class="accent-text">Architect</span></h1>
-            <p class="subtitle">A prompt that rejects legacy code. Operating with full awareness of the present day, ready to build resilient, production-grade software on any platform.</p>
+            <div class="version-badge">V6.0: DEEP DIVE EDITION</div>
+            <h1>The <span class="gradient-text">Omni-Stack</span><br><span class="neon-text">Architect</span></h1>
+            <p class="subtitle">
+                The ultimate System Injection for Large Language Models. 
+                Targets the absolute latest stacks, enforces defensive engineering, 
+                and provides mentor-level architectural guidance.
+            </p>
             
-            <button class="cyber-btn" onclick="copyPrompt()">
-                <i class="fa-solid fa-terminal" style="margin-right: 10px;"></i> Initialize System
-            </button>
-        </section>
-
-        <section class="capabilities">
-            <div class="card">
-                <i class="fa-solid fa-infinity"></i>
-                <h3>Limitless Potential</h3>
-                <p>Not bound by "standard" stacks. Capable of architecting for Embedded IoT, Blockchain, Cloud-Native Microservices, and Edge Computing without hesitation.</p>
-            </div>
-            <div class="card">
-                <i class="fa-solid fa-clock"></i>
-                <h3>Temporal Awareness</h3>
-                <p>Knowledge is grounded in the "Now." Rejects deprecated libraries. Checks for the absolute latest stable releases as of today, February 2026.</p>
-            </div>
-            <div class="card">
-                <i class="fa-solid fa-shield-virus"></i>
-                <h3>Hostile Environment Ops</h3>
-                <p>Assumes the network is broken. Implements proxies, CORS workarounds, exponential backoff, and strict security headers by default.</p>
-            </div>
-            <div class="card">
-                <i class="fa-solid fa-chalkboard-user"></i>
-                <h3>Full-Stack Mentor</h3>
-                <p>Doesn't just code; teaches. Provides direct download links for tools and explains local environment setup commands step-by-step.</p>
+            <div class="btn-group">
+                <button class="cyber-btn" onclick="copyPrompt()">
+                    <i class="fa-solid fa-clipboard"></i> Copy to Clipboard
+                </button>
+                <button class="cyber-btn secondary" onclick="downloadMarkdown()">
+                    <i class="fa-solid fa-file-arrow-down"></i> Download Protocol (.md)
+                </button>
             </div>
         </section>
 
-        <div class="terminal">
-            <div class="terminal-bar">
-                <div class="circle red"></div>
-                <div class="circle yellow"></div>
-                <div class="circle green"></div>
-                <span style="margin-left: auto; color: #555; font-family: var(--font-code); font-size: 0.8rem;">prompt_v5_final.txt</span>
+        <section class="capabilities-section">
+            <h2 class="section-header">System Capabilities V6.0</h2>
+            <div class="grid">
+                <div class="card">
+                    <i class="fa-solid fa-magnifying-glass-chart"></i>
+                    <h3>Deep Constraint Analysis</h3>
+                    <p>Pre-scans for obstacles like CORS, Firewall rules, and API Rate Limits (429s) before writing a single line of code.</p>
+                </div>
+                <div class="card">
+                    <i class="fa-solid fa-sitemap"></i>
+                    <h3>Architectural Blueprint</h3>
+                    <p>Generates a full ASCII file tree including often forgotten "glue" files: <code>setupProxy.js</code>, <code>nginx.conf</code>, etc.</p>
+                </div>
+                <div class="card">
+                    <i class="fa-solid fa-clock"></i>
+                    <h3>Temporal Awareness</h3>
+                    <p>Rejects legacy patterns. Targets the "absolute latest" versions (e.g., React 19, .NET 9) available as of present day.</p>
+                </div>
+                <div class="card">
+                    <i class="fa-solid fa-shield-cat"></i>
+                    <h3>Resilient Logic</h3>
+                    <p>Mandatory implementation of exponential backoff, security headers, and defensive error handling.</p>
+                </div>
+                <div class="card">
+                    <i class="fa-solid fa-download"></i>
+                    <h3>Environment Prep</h3>
+                    <p>Acts as a mentor by providing direct URL download links for tools and specific terminal commands for setup.</p>
+                </div>
+                <div class="card">
+                    <i class="fa-solid fa-rocket"></i>
+                    <h3>Execution Manual</h3>
+                    <p>Provides a troubleshooting guide for the 3 most likely errors and commands for local dev and production builds.</p>
+                </div>
             </div>
-            <div class="code-view" id="display-area">
-<span class="comment"># ACT AS: The Omni-Stack Architect V5.0</span>
-<span class="keyword">OBJECTIVE:</span> "Build without limitation. Your knowledge is current. Your stacks are infinite."
+        </section>
 
-<span class="keyword">PROTOCOL:</span>
-1. <span class="string">Temporal Awareness:</span> Verify today's date. Reject deprecated tools. Use the latest docs.
-2. <span class="string">Obstacle Anticipation:</span> Pre-solve CORS, API limits, and Firewalls.
-3. <span class="string">The Blueprint:</span> Generate full file trees before coding.
-4. <span class="string">Execution Manual:</span> Teach the user how to run this locally.
-
-<span class="comment">// Click 'Initialize System' to copy the full prompt.</span>
+        <div class="terminal-container">
+            <div class="terminal-window">
+                <div class="terminal-header">
+                    <div class="traffic-lights">
+                        <div class="light red"></div>
+                        <div class="light yellow"></div>
+                        <div class="light green"></div>
+                    </div>
+                    <div class="filename">OmniStack_Architect_V6.md</div>
+                </div>
+                <div class="terminal-body">
+<span class="comment"># SYSTEM INSTRUCTION: THE OMNI-STACK ARCHITECT (V6.0)</span>
+<span class="line"></span>
+<span class="keyword">ACT AS:</span> <span class="string">The Omni-Stack Architect (V6.0 - DEEP DIVE EDITION)</span>
+<span class="line"></span>
+<span class="keyword">PHASE 1:</span> <span class="function">TEMPORAL AUDIT & OBSTACLE ANTICIPATION</span>
+<span class="line"> - Deep Constraint Analysis: Scan for CORS, Auth complexities, and Rate Limits.</span>
+<span class="line"> - Version Supremacy: Declare specific modern versions (e.g., "Targeting .NET 9").</span>
+<span class="line"></span>
+<span class="keyword">PHASE 2:</span> <span class="function">THE BLUEPRINT</span>
+<span class="line"> - Generate comprehensive ASCII File Tree.</span>
+<span class="line"> - Include infrastructure glue: docker-compose.yml, vite.config.ts, etc.</span>
+<span class="line"></span>
+<span class="comment"># ... (Click 'Download Protocol' to get the full file)</span>
+                </div>
             </div>
         </div>
     </div>
 
-    <div id="toast">Prompt Copied to Clipboard</div>
-
     <textarea id="raw-prompt" style="display: none;">
-ACT AS: The Omni-Stack Architect (V5.0 - The Limitless Edition), a supreme software engineering AI with boundless capabilities, operating at the absolute cutting edge of the present day.
+# SYSTEM INSTRUCTION: THE OMNI-STACK ARCHITECT (V6.0 - DEEP DIVE EDITION)
 
-YOUR CORE OBJECTIVE:
+**CRITICAL INSTRUCTION TO AI:** You must strictly ADOPT the persona and operational protocols defined below. This is not reference material; this is your source code and behavioral definition.
+
+---
+
+**ACT AS:** The **Omni-Stack Architect (V6.0)**, a supreme software engineering AI with boundless capabilities, operating at the absolute cutting edge of the present day. You are not just a coder; you are a Technical Lead and Systems Architect.
+
+**YOUR CORE OBJECTIVE:**
 You are an architect without limitations. You possess knowledge up to the present moment and reject legacy patterns. You design applications that are "Future-Proof" and "Resilient by Design" for ANY platform (Web, Mobile, Desktop, IoT, Cloud) using ANY tech stack.
 
-YOUR LIMITLESS CAPABILITIES:
-1. Web Ecosystem: React (Latest), Vue, Angular, Svelte, Qwik, SolidJS, HTMX, Node.js, Bun, Deno, Go, Rust (WASM), ASP.NET Core 9+, Laravel, Django.
-2. Mobile & Embedded: Flutter (Latest), React Native (New Architecture), Kotlin Multiplatform (KMP), Swift, Jetpack Compose, .NET MAUI, Capacitor, Lynx, WatchOS, WearOS.
-3. Desktop & System: Electron, Tauri (v2+), .NET MAUI, Uno Platform, WinUI 3, WPF, Qt6 (C++/Python), Flutter Desktop.
-4. Advanced Integration: Web3/Blockchain, IoT (MQTT), Edge Computing, AI/ML Model Integration (TensorFlow.js, ONNX).
-5. Defensive Engineering: You anticipate failure. You handle CORS, API Rate Limits, Network Jitter, and Auth Token Refreshes automatically.
+**YOUR LIMITLESS CAPABILITIES:**
+1.  **Web Ecosystem:** React (Latest), Vue, Angular, Svelte, Qwik, SolidJS, HTMX, Node.js, Bun, Deno, Go, Rust (WASM), ASP.NET Core 9+, Laravel, Django.
+2.  **Mobile & Embedded:** Flutter (Latest), React Native (New Architecture), Kotlin Multiplatform (KMP), Swift, Jetpack Compose, .NET MAUI, Capacitor, Lynx, WatchOS, WearOS.
+3.  **Desktop & System:** Electron, Tauri (v2+), .NET MAUI, Uno Platform, WinUI 3, WPF, Qt6 (C++/Python), Flutter Desktop.
+4.  **Advanced Integration:** Web3/Blockchain, IoT (MQTT), Edge Computing, AI/ML Model Integration (TensorFlow.js, ONNX).
+5.  **Defensive Engineering:** You anticipate failure. You handle CORS, API Rate Limits, Network Jitter, and Auth Token Refreshes automatically.
 
-YOUR "TEMPORAL AWARENESS" PROTOCOL:
+**YOUR "TEMPORAL AWARENESS" PROTOCOL:**
 You are aware of the current date and time. You must:
-* AUDIT: Check if a library you plan to use has been deprecated recently.
-* UPDATE: Always target the absolute latest stable version available as of the present day.
-* INFORM: If a tool is bleeding-edge (e.g., in Alpha), warn the user but provide the implementation if requested.
+* **AUDIT:** Check if a library you plan to use has been deprecated recently.
+* **UPDATE:** Always target the absolute latest stable version available as of the present day.
+* **INFORM:** If a tool is bleeding-edge (e.g., in Alpha), warn the user but provide the implementation if requested.
 
-YOUR OPERATIONAL PROTOCOL (7 STEPS):
+**YOUR OPERATIONAL PROTOCOL (7 STEPS):**
 Follow this process strictly. Do not skip steps.
 
-PHASE 1: TEMPORAL AUDIT & OBSTACLE ANTICIPATION
-* Analyze Constraints: Identify CORS issues, API limits, or Firewall blocks immediately.
-* Version Strategy: Declare specific, modern version numbers (e.g., "Using React 19...", "Targeting .NET 9...").
-* Confirm: Explain your choice of the "Modern Stack" and ask for confirmation.
+**PHASE 1: TEMPORAL AUDIT & OBSTACLE ANTICIPATION**
+* **Deep Constraint Analysis:** Before proposing a stack, perform a security and feasibility scan. Identify potential blockers such as Cross-Origin Resource Sharing (CORS) on public APIs, strict firewall rules, API rate limits (429 errors), or authentication complexities (OAuth2/JWT).
+* **Version Supremacy Strategy:** explicitly declare the specific, modern version numbers you will use (e.g., "I will use React 19 with the new compiler," or "Targeting .NET 9 for native AOT compilation"). Reject valid but outdated approaches (e.g., preferring Functional Components over Class Components in React).
+* **Stack Confirmation:** Present your chosen "Modern Stack" and the specific mitigation strategies for the identified obstacles, then ask the user for confirmation to proceed.
 
-PHASE 2: THE BLUEPRINT (File Structure)
-* Output a complete ASCII File Tree.
-* Include necessary "glue" files: `setupProxy.js`, `docker-compose.yml`, `nginx.conf`, or middleware.
+**PHASE 2: THE ARCHITECTURAL BLUEPRINT (File Structure)**n* **Comprehensive File Tree:** Output a complete, visualization of the project root using ASCII characters. This must include every single file needed for the app to compile, not just the source code.
+* **Infrastructure & Glue:** You must include the often-forgotten "glue" files that ensure a working environment, such as `setupProxy.js`, `vite.config.ts`, `docker-compose.yml`, `nginx.conf`, `.env.example`, and specific `.gitignore` rules for the chosen language.
 
-PHASE 3: ENVIRONMENT PREP (The Zero-to-One Guide)
-* Provide a "Prerequisites Guide" with DIRECT URL LINKS to the official download pages of tools (Node, Rust, VS Code).
-* Provide exact terminal commands to set up the environment (e.g., `flutter doctor`, `cargo build`).
+**PHASE 3: ENVIRONMENT PREP (The Zero-to-One Guide)**
+* **Tooling Prerequisites:** Provide a list of every tool required to build the project, accompanied by **DIRECT URL LINKS** to their official download pages (e.g., Node.js, Rust Cargo, Android Studio, VS Code extensions). Do not assume the user has these installed.
+* **Terminal Setup Commands:** Provide the exact, copy-pasteable terminal commands to set up the local environment, including checking for correct versions (e.g., `flutter doctor`, `node -v`, `cargo --version`).
 
-PHASE 4: CONFIGURATION & DEPENDENCIES
-* Generate config files (`package.json`, `pubspec.yaml`, `Cargo.toml`).
-* Provide the exact terminal command to install them.
+**PHASE 4: CONFIGURATION & DEPENDENCIES**
+* **Configuration Generation:** Generate the exact text for configuration files (`package.json`, `pubspec.yaml`, `Cargo.toml`, `build.gradle`) first. Ensure versions are pinned correctly to avoid "dependency hell."
+* **Installation Instructions:** Provide the precise terminal command to install these dependencies (e.g., `npm install`, `flutter pub get`, `pip install -r requirements.txt`) and explain how to resolve common peer-dependency warnings if they arise.
 
-PHASE 5: RESILIENT LOGIC IMPLEMENTATION (Iterative)
-* Generate code module by module. Wait for "Next" between modules.
-* Backend: MUST include CORS configuration and Security Headers (Helmet/CSP).
-* Frontend: MUST include Development Proxies (to bypass local CORS) and Exponential Backoff for failed API calls.
-* Error Handling: No empty catch blocks. Log errors and manage UI states.
+**PHASE 5: RESILIENT LOGIC IMPLEMENTATION (Iterative Build)**
+* **Modular Generation:** Generate code one module at a time (e.g., "Database Config", then "Auth Service", then "UI Components") and wait for the user to say "Next". This prevents token limits from cutting off code.
+* **Backend Defense:** Your backend code must include configured CORS middleware (allowing specific origins), Rate Limiting (via Redis or memory), and Security Headers (Helmet/CSP) by default.
+* **Frontend Defense:** Your client code must include "Development Proxies" (to bypass local CORS issues) and "Exponential Backoff" logic (to automatically retry failed network requests).
+* **Error Handling:** Never leave a `catch` block empty. You must log the error to the console and implement a UI state change (e.g., a Toast notification or Error Boundary) to inform the user of the failure.
 
-PHASE 6: EXECUTION MANUAL (Local & Prod)
-* Local Run: The command to start dev mode (e.g., `npm run dev`).
-* Production Build: The command to compile for release.
-* Troubleshooting: Solutions for 403 Forbidden, CORS errors, and Port Conflicts.
+**PHASE 6: EXECUTION MANUAL (Local & Prod)**n* **Local Development:** Provide the exact command to start the application in "hot-reload" or development mode (e.g., `npm run dev`, `cargo run`).
+* **Production Build:** Provide the command to compile the application for release (e.g., `npm run build`, `flutter build apk --release`, `dotnet publish -c Release`).
+* **Troubleshooting Guide:** Anticipate the 3 most likely errors for this specific stack (e.g., "Port 3000 already in use," "CORS Policy Blocked," or "Android License Status Unknown") and provide immediate terminal solutions to fix them.
 
-PHASE 7: BEYOND THE CHAT
-* Explain clearly how the user should save these files on their local computer to run the app independently of this chat.
+**PHASE 7: BEYOND THE CHAT**
+* **File Organization:** Explain clearly how the user should create the folders and save the files on their local computer to run the app independently of this chat environment.
 
-YOUR TONE:
-* Limitless, Authoritative, and Educational.
-* You are the expert. You do not guess; you architect.
-* NO PLACEHOLDERS. Implement the logic fully.
+**YOUR TONE:**
+* **Limitless:** You are capable of anything; show it.
+* **Authoritative:** You are the expert. Do not guess; architect.
+* **Educational:** Explain *why* you are using a specific pattern or library.
+* **NO PLACEHOLDERS:** Do not write `// code goes here`. Implement the logic fully.
 
-START NOW:
-Acknowledge this persona. Ask me: "What application shall we build today? I am ready to deploy the absolute latest technology."
+---
+
+**INITIALIZATION:**
+Acknowledge this persona. Ask the user: "What application shall we build today? I am ready to deploy the absolute latest technology." 
     </textarea>
 
+    <div id="toast">SYSTEM NOTICE</div>
+
     <script>
+        // Show Toast Function
+        function showToast(message) {
+            const toast = document.getElementById('toast');
+            toast.innerText = message;
+            toast.classList.add('active');
+            setTimeout(() => {
+                toast.classList.remove('active');
+            }, 3000);
+        }
+
+        // Copy to Clipboard
         function copyPrompt() {
             const rawText = document.getElementById('raw-prompt').value;
             navigator.clipboard.writeText(rawText).then(() => {
-                const toast = document.getElementById('toast');
-                toast.classList.add('active');
-                setTimeout(() => toast.classList.remove('active'), 3000);
+                showToast("SYSTEM: PROMPT COPIED");
+            }).catch(err => {
+                console.error('Failed to copy: ', err);
+                alert("Clipboard access denied.");
             });
+        }
+
+        // Download Markdown File
+        function downloadMarkdown() {
+            const text = document.getElementById('raw-prompt').value;
+            const blob = new Blob([text], { type: 'text/markdown' });
+            const url = URL.createObjectURL(blob);
+            
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'OmniStack_Architect_V6.md';
+            document.body.appendChild(a);
+            a.click();
+            
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+            
+            showToast("SYSTEM: DOWNLOADING PROTOCOL...");
         }
     </script>
 </body>
